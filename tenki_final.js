@@ -103,17 +103,28 @@ function switchLocation(index) {
 }
 
 function makePage(data) {
+  // 既存の処理（今日・明日）
   setData('day0', dateFormat(data.daily.time[0]));
   setData('day1', dateFormat(data.daily.time[1]));
+  setData('day2', dateFormat(data.daily.time[2]));  // ★ 追加：明後日の日付
+
   setData('weathercode0', getWMO(data.daily.weathercode[0]));
   setData('weathercode1', getWMO(data.daily.weathercode[1]));
+  setData('weathercode2', getWMO(data.daily.weathercode[2]));  // ★ 追加
+
   setData('temperature_2m_max0', data.daily.temperature_2m_max[0] + '℃');
   setData('temperature_2m_max1', data.daily.temperature_2m_max[1] + '℃');
+  setData('temperature_2m_max2', data.daily.temperature_2m_max[2] + '℃');  // ★ 追加
+
   setData('temperature_2m_min0', data.daily.temperature_2m_min[0] + '℃');
   setData('temperature_2m_min1', data.daily.temperature_2m_min[1] + '℃');
+  setData('temperature_2m_min2', data.daily.temperature_2m_min[2] + '℃');  // ★ 追加
+
   setData('precipitation_sum0', data.daily.precipitation_sum[0] + 'mm');
   setData('precipitation_sum1', data.daily.precipitation_sum[1] + 'mm');
+  setData('precipitation_sum2', data.daily.precipitation_sum[2] + 'mm');  // ★ 追加
 
+  // 降水量に応じて背景色を変える（既存）
   const rainy = data.daily.precipitation_sum[0] > 0;
   document.getElementById('body').style.backgroundColor = rainy ? '#cff' : '#ffc';
 }
