@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24時間天気予報</title>
+  <link rel="stylesheet" href="tenki_final.css">
+  <link rel="stylesheet" href="hourly.css">
+  <script src="hourly.js" defer></script>
+</head>
+<body>
+  <h1 id="city-name">24時間天気予報</h1>
+  <p><a href="tenki_final.html">← 3日間予報に戻る</a></p>
+
+  <div id="table-wrapper">
+    <table id="hourly-table">
+      <thead>
+        <tr id="hour-row"><th>時刻</th></tr>
+      </thead>
+      <tbody>
+        <tr id="weather-row"><th>天気</th></tr>
+        <tr id="temp-row"><th>気温</th></tr>
+        <tr id="precip-row"><th>降水量</th></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="credit">
+    <a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>
+  </div>
+</body>
+</html>

@@ -2,7 +2,7 @@ const DEFAULT_LOCATIONS = [
   { name: '東京', lat: 35.6785, lng: 139.6823 }
 ];
 
-let currentIndex = 0;
+let currentIndex = loadCurrentIndex();
 
 function loadLocations() {
   const saved = localStorage.getItem('weather_locations');
@@ -14,6 +14,15 @@ function loadLocations() {
 
 function saveLocations(locations) {
   localStorage.setItem('weather_locations', JSON.stringify(locations));
+}
+
+function saveCurrentIndex(index) {
+  localStorage.setItem('weather_current_index', index);
+}
+
+function loadCurrentIndex() {
+  const saved = localStorage.getItem('weather_current_index');
+  return saved !== null ? parseInt(saved, 10) : 0;
 }
 
 function handleAdd() {
@@ -120,6 +129,7 @@ function showWeatherForCoords(lat, lng, label) {
 
 function switchLocation(index) {
   currentIndex = index;
+   saveCurrentIndex(index);  // ★ 追加
   renderLocationList();
 
   const locations = loadLocations();
