@@ -31,9 +31,16 @@ function getWMO(w) {
 }
 
 function loadHourlyWeather() {
-  const locations = loadLocations();
-  const index = loadCurrentIndex();
-  const loc = locations[index] || locations[0];
+  let loc = null;
+  const activeSaved = localStorage.getItem('weather_active_location');
+  if (activeSaved) {
+    try { loc = JSON.parse(activeSaved); } catch (e) {}
+  }
+  if (!loc) {
+    const locations = loadLocations();
+    const index = loadCurrentIndex();
+    loc = locations[index] || locations[0];
+  }
 
   document.getElementById('city-name').textContent = loc.name + 'の24時間天気';
 

@@ -25,6 +25,10 @@ function loadCurrentIndex() {
   return saved !== null ? parseInt(saved, 10) : 0;
 }
 
+function saveActiveLocation(name, lat, lng) {
+  localStorage.setItem('weather_active_location', JSON.stringify({ name: name, lat: lat, lng: lng }));
+}
+
 function handleAdd() {
   const nameEl = document.querySelector('#add-form input[name="name"]');
   const latEl = document.querySelector('#add-form input[name="lat"]');
@@ -111,6 +115,7 @@ function useCurrentLocation() {
 }
 
 function showWeatherForCoords(lat, lng, label) {
+  saveActiveLocation(label, lat, lng);  // ★ 追加
   document.getElementById('city-name').textContent = label + 'の天気';
 
   const url = 'https://api.open-meteo.com/v1/forecast'
@@ -129,7 +134,7 @@ function showWeatherForCoords(lat, lng, label) {
 
 function switchLocation(index) {
   currentIndex = index;
-   saveCurrentIndex(index);  // ★ 追加
+  saveCurrentIndex(index);
   renderLocationList();
 
   const locations = loadLocations();
