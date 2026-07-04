@@ -31,6 +31,22 @@ table th, table td {
   font-size: 2.2vw;
 }
 
+body.weather-sunny {
+  background: linear-gradient(180deg, #4a90d9 0%, #87ceeb 60%, #b3e0f2 100%);
+}
+
+body.weather-cloudy {
+  background: linear-gradient(180deg, #7f8c9a 0%, #a9b7c2 60%, #c9d3d9 100%);
+}
+
+body.weather-rainy {
+  background: linear-gradient(180deg, #2c3e50 0%, #4a6278 60%, #6b8494 100%);
+}
+
+body.weather-snowy {
+  background: linear-gradient(180deg, #b8d4e3 0%, #dceaf2 60%, #f0f7fb 100%);
+}
+
 #credit { font-size: 2vw; margin-top: 2vw; }
 #credit a { color: #333; }
 

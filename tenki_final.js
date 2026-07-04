@@ -155,12 +155,14 @@ function switchLocation(index) {
 function makePage(data) {
   // 既存の処理（今日・明日）
   setData('day0', dateFormatWithWeekday(data.daily.time[0], 0));
-setData('day1', dateFormatWithWeekday(data.daily.time[1], 1));
-setData('day2', dateFormatWithWeekday(data.daily.time[2], 2)); // ★ 追加：明後日の日付
+  setData('day1', dateFormatWithWeekday(data.daily.time[1], 1));
+  setData('day2', dateFormatWithWeekday(data.daily.time[2], 2)); // ★ 追加：明後日の日付
 
   setData('weathercode0', getWMO(data.daily.weathercode[0]));
   setData('weathercode1', getWMO(data.daily.weathercode[1]));
   setData('weathercode2', getWMO(data.daily.weathercode[2]));  // ★ 追加
+  
+  applyWeatherBackground(data.daily.weathercode[0]);
 
   setData('temperature_2m_max0', data.daily.temperature_2m_max[0] + '℃');
   setData('temperature_2m_max1', data.daily.temperature_2m_max[1] + '℃');
@@ -185,6 +187,21 @@ setData('day2', dateFormatWithWeekday(data.daily.time[2], 2)); // ★ 追加：�
   // 降水量に応じて背景色を変える（既存）
   const rainy = data.daily.precipitation_sum[0] > 0;
   document.getElementById('body').style.backgroundColor = rainy ? '#cff' : '#ffc';
+}
+
+  function getWeatherCategory(w) {
+  if (w === 0 || w === 1) return 'sunny';
+  if (w === 2 || w === 3 || w === 45 || w === 48) return 'cloudy';
+  if (w >= 71 && w <= 77) return 'snowy';
+  if (w >= 85 && w <= 86) return 'snowy';
+  return 'rainy';  // 霧雨・雨・雷雨など、それ以外はすべて雨扱い
+}
+
+function applyWeatherBackground(w) {
+  const category = getWeatherCategory(w);
+  const body = document.body;
+  body.classList.remove('weather-sunny', 'weather-cloudy', 'weather-rainy', 'weather-snowy');
+  body.classList.add('weather-' + category);
 }
 
 function setData(id, value) {

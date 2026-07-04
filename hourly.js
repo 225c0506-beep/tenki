@@ -30,6 +30,21 @@ function getWMO(w) {
   return String(w);
 }
 
+function getWeatherCategory(w) {
+  if (w === 0 || w === 1) return 'sunny';
+  if (w === 2 || w === 3 || w === 45 || w === 48) return 'cloudy';
+  if (w >= 71 && w <= 77) return 'snowy';
+  if (w >= 85 && w <= 86) return 'snowy';
+  return 'rainy';
+}
+
+function applyWeatherBackground(w) {
+  const category = getWeatherCategory(w);
+  const body = document.body;
+  body.classList.remove('weather-sunny', 'weather-cloudy', 'weather-rainy', 'weather-snowy');
+  body.classList.add('weather-' + category);
+}
+
 function loadHourlyWeather() {
   let loc = null;
   const activeSaved = localStorage.getItem('weather_active_location');
@@ -71,6 +86,8 @@ function renderHourlyTable(data) {
   const temps = data.hourly.temperature_2m;
   const precs = data.hourly.precipitation;
   const codes = data.hourly.weathercode;
+
+  applyWeatherBackground(codes[0]);
 
   for (let i = 0; i < 24; i++) {
     const d = new Date(times[i]);
