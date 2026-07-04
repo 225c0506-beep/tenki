@@ -94,7 +94,7 @@ function switchLocation(index) {
   const url = 'https://api.open-meteo.com/v1/forecast'
     + '?latitude=' + loc.lat
     + '&longitude=' + loc.lng
-    + '&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max'
+    + '&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,windspeed_10m_max'
     + '&timezone=Asia%2FTokyo';
 
   fetch(url)
@@ -126,6 +126,10 @@ setData('day2', dateFormatWithWeekday(data.daily.time[2], 2)); // ★ 追加：�
   setData('precipitation_probability_max0', data.daily.precipitation_probability_max[0] + '%');
   setData('precipitation_probability_max1', data.daily.precipitation_probability_max[1] + '%');
   setData('precipitation_probability_max2', data.daily.precipitation_probability_max[2] + '%');// ★ 追加
+  setData('windspeed_10m_max0', data.daily.windspeed_10m_max[0] + 'm/s');
+  setData('windspeed_10m_max1', data.daily.windspeed_10m_max[1] + 'm/s');
+  setData('windspeed_10m_max2', data.daily.windspeed_10m_max[2] + 'm/s');// ★ 追加
+  
 
 
   // 降水量に応じて背景色を変える（既存）
