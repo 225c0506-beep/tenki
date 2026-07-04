@@ -104,9 +104,9 @@ function switchLocation(index) {
 
 function makePage(data) {
   // 既存の処理（今日・明日）
-  setData('day0', dateFormat(data.daily.time[0]));
-  setData('day1', dateFormat(data.daily.time[1]));
-  setData('day2', dateFormat(data.daily.time[2]));  // ★ 追加：明後日の日付
+  setData('day0', dateFormatWithWeekday(data.daily.time[0], 0));
+setData('day1', dateFormatWithWeekday(data.daily.time[1], 1));
+setData('day2', dateFormatWithWeekday(data.daily.time[2], 2)); // ★ 追加：明後日の日付
 
   setData('weathercode0', getWMO(data.daily.weathercode[0]));
   setData('weathercode1', getWMO(data.daily.weathercode[1]));
@@ -145,6 +145,27 @@ function dateFormat(date, mode) {
 
   if (mode === 1) return year + '年' + month + '月' + day + '日 ' + hour + ':' + minute + ':' + second;
   return month + '月' + day + '日';
+}
+
+function getWeekday(d) {
+  const days = ['日', '月', '火', '水', '木', '金', '土'];
+  return days[d.getDay()];
+}
+
+function getRelativeLabel(index) {
+  if (index === 0) return '今日';
+  if (index === 1) return '明日';
+  if (index === 2) return '明後日';
+  return '';
+}
+
+function dateFormatWithWeekday(dateStr, index) {
+  const d = new Date(dateStr);
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const weekday = getWeekday(d);
+  const label = getRelativeLabel(index);
+  return month + '月' + day + '日（' + label + '・' + weekday + '）';
 }
 
 function addZero(n) {
